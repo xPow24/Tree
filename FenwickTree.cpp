@@ -8,8 +8,8 @@ void update(int x) {
     x -= x & -x;
   }
 }
-int get(int x) {
-  int res = 0;
+long long get(int x) {
+  long long res = 0;
   while (x <= n) {
     res += bit[x];
     x += x & -x;
