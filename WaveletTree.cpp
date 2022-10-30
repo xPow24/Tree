@@ -1,44 +1,52 @@
-#include <bits/stdc++.h>
+#include <bits/stdc++.h> 
 using namespace std;
-const int N = 3e5, M = N;
-vector<int> g[N];
+const int N = 3e5;
 int a[N];
 const int MAX = 1e6;
-struct wavelet_tree{
-  #define vi vector<int>
-  #define pb push_back
+
+struct WVTree {
   int lo, hi;
-  wavelet_tree *l, *r;
-  vi b;
-  wavelet_tree(int *from, int *to, int x, int y) {
+  WVTree *l, *r;
+  vector<int> b;
+  WVTree(int *from, int *to, int x, int y) {
     lo = x, hi = y;
-    if (lo == hi or from >= to) return;
+    if (lo == hi || from >= to) return;
     int mid = (lo + hi)/2;
-    auto f = [mid](int x){
-      return x <= mid;
+    auto f = [mid](int tt) {
+      return tt <= mid;
     };
     b.reserve(to - from + 1);
-    b.pb(0);
-    for (auto it = from; it != to; it++)
-      b.pb(b.back() + f(*it));
+    b.push_back(0);
+    for (auto it = from; it != to; it++) {
+      b.push_back(b.back() + f(*it));
+    }
     auto pivot = stable_partition(from, to, f);
-    l = new wavelet_tree(from, pivot, lo, mid);
-    r = new wavelet_tree(pivot, to, mid + 1, hi);
+    l = new WVTree(from, pivot, lo, mid);
+    r = new WVTree(pivot, to, mid + 1, hi);
   }
-  int kth(int l, int r, int k) {
-    if (l > r) return 0;
+  int kth(int u, int v, int k) {
+    if (u > v) return 0;
     if (lo == hi) return lo;
-    int inleft = b[r] - b[l - 1];
-    int lb = b[l - 1];
-    int rb = b[r];
-    if (k <= inleft) return this->l->kth(lb + 1, rb , k);
-    return this->r->kth(l - lb, r - rb, k - inleft);
+    int inleft = b[v] - b[u - 1];
+    int lb = b[u - 1], rb = b[v];
+    if (k <= inleft) return this->l->kth(lb + 1, rb, k);
+    return this->r->kth(u - lb, v - rb, k - inleft);
   }
-  ~wavelet_tree() {
-     delete l;
-     delete r;
+  int LTE(int u, int v, int k) {
+    if (u > v || k < lo) return 0;
+    if (hi <= k) return v - u + 1;
+    int lb = b[u - 1], rb = b[v];
+    return this->l->LTE(lb + 1, rb, k) + this->r->LTE(u - lb, v - rb, k);
+  }
+  int count(int u, int v, int k) {
+    if (u > v || k < lo || k > hi) return 0;
+    if (lo == hi) return v - u + 1;
+    int lb = b[u - 1], rb = b[v], mid = (lo + hi)/2;
+    if (k <= mid) return this->l->count(lb + 1, rb, k);
+    else return this->r->count(u - lb, v - rb, k);
   }	
 };
+
 int main()
 {
   ios_base::sync_with_stdio(false);
@@ -46,12 +54,11 @@ int main()
   int q, n, k, l, r;
   cin >> n;
   for (int i = 1; i <= n; ++i) cin >> a[i];
-  wavelet_tree T(a + 1, a + n + 1, 1, MAX);
+  WVTree T(a + 1, a + n + 1, 1, MAX);
   cin >> q;
   while (q--) {
     cin >> l >> r >> k;
-    cout << T.kth(l, r, k) << endl;
+    cout << T.kth(l, r, k) << '\n';
   }
   return 0;
 } 
-
