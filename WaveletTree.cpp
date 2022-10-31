@@ -18,11 +18,20 @@ struct WVTree {
       return tt <= mid; 
     };
     for (auto it = from; it != to; ++it) {
-      b.push_back(b.back() + check(*it));
+      if (*it <= mid) {
+        cc = max(cc, *it);
+        b.push_back(b.back() + 1);
+      }
+      else {
+        zz = min(zz, *it);
+        b.push_back(b.back());
+      }
     }
+    int mid2 = max(mid + 1, zz);
+    mid = min(mid, cc);
     auto pivot = stable_partition(from, to, check);
     l = new WVTree(from, pivot, lo, mid);
-    r = new WVTree(pivot, to, mid + 1, hi);
+    r = new WVTree(pivot, to, mid2, hi);
   }
   int kth(int u, int v, int k) {
     if (u > v) return 0;
