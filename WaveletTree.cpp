@@ -51,14 +51,29 @@ int main()
 {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL); cout.tie(NULL);
-  int q, n, k, l, r;
+  int q, n, k, l, r, maxn = 0;
   cin >> n;
-  for (int i = 1; i <= n; ++i) cin >> a[i];
-  WVTree T(a + 1, a + n + 1, 1, MAX);
+  for (int i = 1; i <= n; ++i) {
+    cin >> a[i];
+    maxn = max(maxn, a[i]);
+  }
+  WVTree T(a + 1, a + n + 1, 1, maxn);
   cin >> q;
   while (q--) {
-    cin >> l >> r >> k;
-    cout << T.kth(l, r, k) << '\n';
+    int type;
+    cin >> type >> l >> r >> k;
+    if (type == 0) {
+      //kth smallest
+			cout << T.kth(l, r, k) << '\n';
+		}
+		if (type == 1) {
+			//less than or equal to K
+			cout << T.LTE(l, r, k) << '\n';
+		}
+		if (type == 2) {
+			//count occurence of K in [l, r]
+			cout << T.count(l, r, k) << '\n';
+		}
   }
   return 0;
 } 
