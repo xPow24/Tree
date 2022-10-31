@@ -63,15 +63,15 @@ int main()
     int type;
     cin >> type >> l >> r >> k;
     if (type == 0) {
-      //kth smallest
+      //return kth smallest value in [l, r]
       cout << T.kth(l, r, k) << '\n';
     }
     if (type == 1) {
-      //less than or equal to K
+      //return number of values that are less than or equal to K in [l, r]
       cout << T.LTE(l, r, k) << '\n';
     }
     if (type == 2) {
-      //count occurence of K in [l, r]
+      //count number of occurences of K in [l, r]
       cout << T.count(l, r, k) << '\n';
     }
   }
