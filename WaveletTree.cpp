@@ -13,25 +13,26 @@ struct WVTree {
     if (from > to || lo == hi) return;
     b.reserve(to - from + 1);
     b.push_back(0);
-    int mid = (lo + hi)/2;
-    auto check = [mid](int tt) {
-      return tt <= mid; 
+    int lmid = (lo + hi)/2;
+    auto check = [lmid](int tt) {
+      return tt <= lmid; 
     };
+    int ff = 0, ss = INF;
     for (auto it = from; it != to; ++it) {
-      if (*it <= mid) {
-        cc = max(cc, *it);
+      if (*it <= lmid) {
+        ff = max(ff, *it);
         b.push_back(b.back() + 1);
       }
       else {
-        zz = min(zz, *it);
+        ss = min(ss, *it);
         b.push_back(b.back());
       }
     }
-    int mid2 = max(mid + 1, zz);
-    mid = min(mid, cc);
+    int rmid = max(lmid + 1, ss);
+    lmid = min(lmid, ff);
     auto pivot = stable_partition(from, to, check);
-    l = new WVTree(from, pivot, lo, mid);
-    r = new WVTree(pivot, to, mid2, hi);
+    l = new WVTree(from, pivot, lo, lmid);
+    r = new WVTree(pivot, to, rmid, hi);
   }
   int kth(int u, int v, int k) {
     if (u > v) return 0;
