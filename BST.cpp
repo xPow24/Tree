@@ -41,8 +41,7 @@ BST *NodeAt(BST* &x, int i) {
   return x;
 }
 void UpTree(BST* &x) {
-  BST *y;
-  BST *z;
+  BST *y, *z;
   y = x->p;
   z = y->p;
   if (x == y->l) {
@@ -60,8 +59,7 @@ void UpTree(BST* &x) {
   Update(y); Update(x);
 }
 void Splay(BST* &x) {
-  BST *y;
-  BST *z;
+  BST *y, *z;
   while (true) {
     y = x->p;
     if (y == NULL) break;
@@ -97,8 +95,7 @@ BST *Join(BST* &T1, BST* &T2) {
   }
 }
 void Insert(int i, int v) {
-  BST *T1;
-  BST *T2;
+  BST *T1, *T2;
   if (i > root->len) {
     i = root->len + 1;
   }
@@ -109,13 +106,10 @@ void Insert(int i, int v) {
   Update(root);
 }
 int Query(int i, int j) {
-  BST *T1;
-  BST *T2;
-  BST *T3;
+  BST *T1, *T2, *T3, *T4;
   Split(root, j, T2, T3);
   Split(T2, i - 1, T1, T2);
   int res = T2->sum;
-  BST *T4;
   T4 = Join(T1, T2);
   root = Join(T4, T3);
   return res;
