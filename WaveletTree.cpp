@@ -3,7 +3,7 @@ using namespace std;
 const int N = 3e5;
 int a[N];
 const int MAX = 1e6;
-
+const int INF = 1e9;
 struct WVTree {
   int lo, hi, md;
   WVTree *l, *r;
