@@ -5,7 +5,7 @@ int a[N];
 const int MAX = 1e6;
 
 struct WVTree {
-  int lo, hi;
+  int lo, hi, md;
   WVTree *l, *r;
   vector<int> b;
   WVTree(int *from, int *to, int x, int y) {
@@ -30,6 +30,7 @@ struct WVTree {
     }
     int rmid = max(lmid + 1, ss);
     lmid = min(lmid, ff);
+    md = lmid;
     auto pivot = stable_partition(from, to, check);
     l = new WVTree(from, pivot, lo, lmid);
     r = new WVTree(pivot, to, rmid, hi);
@@ -51,8 +52,8 @@ struct WVTree {
   int count(int u, int v, int k) {
     if (u > v || k < lo || k > hi) return 0;
     if (lo == hi) return v - u + 1;
-    int lb = b[u - 1], rb = b[v], mid = (lo + hi)/2;
-    if (k <= mid) return this->l->count(lb + 1, rb, k);
+    int lb = b[u - 1], rb = b[v];
+    if (k <= md) return this->l->count(lb + 1, rb, k);
     else return this->r->count(u - lb, v - rb, k);
   } 
 };
