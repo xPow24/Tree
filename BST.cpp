@@ -68,7 +68,7 @@ void Splay(BST* &x) {
       if (y == z->l && x == y->l) UpTree(y);
       else UpTree(x);
     }
-    UpTree(x);
+    else UpTree(x);
   }
 }
 void Split(BST* &T, int i, BST* &T1, BST* &T2) {
