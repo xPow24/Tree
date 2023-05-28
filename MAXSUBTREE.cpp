@@ -29,9 +29,9 @@ int main() {
   int N, M; cin >> N >> M;
   FOR(i, 1, N) cin >> a[i];
   FOR(i, 1, N - 1) {
-	  int u, v; cin >> u >> v;
-	  g[u].push_back(v);
-	  g[v].push_back(u);
+    int u, v; cin >> u >> v;
+    g[u].push_back(v);
+    g[v].push_back(u);
   }
   DFS(1, 0);
   // cout << sz[x] == biggest subtree that it's root is x
