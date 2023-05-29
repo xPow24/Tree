@@ -1,7 +1,13 @@
-#include<bits/stdc++.h>
-using namespace std;
-const int MAXN = 1000, INF = 1000000009;
-int tree[MAXN*4], a[MAXN];
+const int MAXN = 1e3;
+const int INF = 1e9 + 9;
+int a[MAXN];
+
+struct SegmentTree {
+  int lazy;
+  int val;
+};
+
+SegmentTree tree[MAXN * 4];
 
 void buildtree(int id, int l, int r) {
   if (l == r) { tree[id].val = a[l]; return; }
