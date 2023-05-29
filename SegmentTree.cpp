@@ -20,7 +20,7 @@ void down(int id) {
 void upd(int id, int l, int r, int u, int v, int k) {
   if (v < l || r < u) return;
   if (u <= l && r <= v) {
-    tree[id].maxn += k;
+    tree[id].lazy += k;
     tree[id].val += k;
     return;
   }
