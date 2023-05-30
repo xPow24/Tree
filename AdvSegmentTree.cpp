@@ -19,11 +19,10 @@ void apply(int p, int val, int k) {
   if (p < n) d[p] = val;
 }
 
-void build(int l, int r) {
+void build(int p) {
   int k = 2;
-  for (l += n, r += n - 1; l > 1; k <<= 1) {
-    l >>= 1; r >>= 1;
-    for (int i = l; i <= r; ++i) calc(i, k);
+  for (p += n; p > 1; k <<= 1) {
+    p >>= 1; calc(p, k);
   }
 } 
 
@@ -47,8 +46,8 @@ void modify(int l, int r, int val) {
     if (l & 1) apply(l++, val, k);
     if (r & 1) apply(--r, val, k);
   }
-  build(left_end, left_end + 1);
-  build(right_end - 1, right_end);
+  build(left_end);
+  build(right_end - 1);
 }
 
 int query(int l, int r) {
