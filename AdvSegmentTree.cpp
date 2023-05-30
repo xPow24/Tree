@@ -1,3 +1,6 @@
+// Chi dung voi truong hop N = 2 ^ K
+// Cac ham o trong day duoc tinh theo range [l, r) hay [l, r - 1]
+
 const int MAXN = 3000;
 int n, h, t[(MAXN << 1) | 1], d[MAXN];
 
