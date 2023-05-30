@@ -1,4 +1,4 @@
-// Chi dung voi truong hop N = 2 ^ K va bai toan khong lien quan den hai dau mut
+// Chi dung voi truong hop N = 2 ^ K va bai toan khong lien quan den hai dau mut (l, r)
 // Cac ham o trong day duoc tinh theo range [l, r) hay [l, r - 1]
 
 
